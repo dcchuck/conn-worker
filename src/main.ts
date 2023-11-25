@@ -1,4 +1,11 @@
-console.log('ConnWorker')
+const worker = new SharedWorker(new URL('./worker.ts', import.meta.url))
+
+worker.port.onmessage = event => {
+  console.log('Received Worker onmessage', event)
+}
+
+worker.port.start()
+console.log(worker)
 
 const socketConnection = new WebSocket('ws://localhost:8765')
 
